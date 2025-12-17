@@ -3,10 +3,9 @@
 ## Project Overview
 
 **Project Title**: Retail Sales Analysis  
-**Level**: Beginner  
 **Database**: `p1_retail_db`
 
-This project is designed to demonstrate SQL skills and techniques typically used by data analysts to explore, clean, and analyze retail sales data. The project involves setting up a retail sales database, performing exploratory data analysis (EDA), and answering specific business questions through SQL queries. This project is ideal for those who are starting their journey in data analysis and want to build a solid foundation in SQL.
+This project focuses on using SQL to explore, clean, and analyze retail sales data. It walks through a complete analysis workflow, starting from setting up the table and understanding the data, to answering practical business questions using SQL. The aim of this project is to apply SQL in a realistic way and strengthen core data analysis skills through hands-on practice.
 
 ## Objectives
 
@@ -23,8 +22,6 @@ This project is designed to demonstrate SQL skills and techniques typically used
 - **Table Creation**: A table named `retail_sales` is created to store the sales data. The table structure includes columns for transaction ID, sale date, sale time, customer ID, gender, age, product category, quantity sold, price per unit, cost of goods sold (COGS), and total sale amount.
 
 ```sql
-CREATE DATABASE p1_retail_db;
-
 CREATE TABLE retail_sales
 (
     transactions_id INT PRIMARY KEY,
@@ -123,8 +120,8 @@ SELECT
 FROM retail_sales
 GROUP 
     BY 
-    category,
-    gender
+    1,
+    2
 ORDER BY 1
 ```
 
@@ -143,7 +140,7 @@ SELECT
     RANK() OVER(PARTITION BY EXTRACT(YEAR FROM sale_date) ORDER BY AVG(total_sale) DESC) as rank
 FROM retail_sales
 GROUP BY 1, 2
-) as t1
+) as tb1
 WHERE rank = 1
 ```
 
@@ -162,7 +159,7 @@ LIMIT 5
 ```sql
 SELECT 
     category,    
-    COUNT(DISTINCT customer_id) as cnt_unique_cs
+    COUNT(DISTINCT customer_id) as unique_cust
 FROM retail_sales
 GROUP BY category
 ```
@@ -186,42 +183,68 @@ SELECT
 FROM hourly_sale
 GROUP BY shift
 ```
-
+11. **Write a SQL query to calculate the total profit for each category.:.**:
+```sql
+SELECT 
+    category,
+    SUM(total_sale - cogs) as total_profit
+FROM retail_sales
+GROUP BY category
+ORDER BY total_profit DESC
+```
+12. **Write a SQL query to distinguish between new and returning customers :**
+ ```sql
+WITH customer_purchases AS (
+    SELECT 
+        customer_id, 
+        COUNT(*) as purchase_count
+    FROM retail_sales
+    GROUP BY customer_id
+)
+SELECT 
+    CASE 
+        WHEN purchase_count = 1 THEN 'New'
+        ELSE 'Repeat'
+    END as customer_type,
+    COUNT(*) as total_customers
+FROM customer_purchases
+GROUP BY customer_type
+ ```
+13.**Peak Hours Evaluation:**
+```sql
+SELECT 
+    EXTRACT(HOUR FROM sale_time) as hour,
+    COUNT(*) as total_orders
+FROM retail_sales
+GROUP BY hour
+ORDER BY total_orders DESC
+```
 ## Findings
 
 - **Customer Demographics**: The dataset includes customers from various age groups, with sales distributed across different categories such as Clothing and Beauty.
 - **High-Value Transactions**: Several transactions had a total sale amount greater than 1000, indicating premium purchases.
 - **Sales Trends**: Monthly analysis shows variations in sales, helping identify peak seasons.
 - **Customer Insights**: The analysis identifies the top-spending customers and the most popular product categories.
+- **Profitability**: The profit analysis highlights which categories generate the highest margins, aiding in inventory and pricing strategies.
+- **Customer Loyalty**: The comparison of new vs. repeat customers provides insights into customer retention rates and the effectiveness of acquisition strategies.
+- **Operational Efficiency**: Hourly analysis reveals peak operating hours, suggesting times when staffing needs to be maximized.
 
 ## Reports
 
 - **Sales Summary**: A detailed report summarizing total sales, customer demographics, and category performance.
 - **Trend Analysis**: Insights into sales trends across different months and shifts.
 - **Customer Insights**: Reports on top customers and unique customer counts per category.
-
+-**Profit Analysis**: A breakdown of profit generation by category.
+  
 ## Conclusion
 
 This project serves as a comprehensive introduction to SQL for data analysts, covering database setup, data cleaning, exploratory data analysis, and business-driven SQL queries. The findings from this project can help drive business decisions by understanding sales patterns, customer behavior, and product performance.
 
-## How to Use
 
-1. **Clone the Repository**: Clone this project repository from GitHub.
-2. **Set Up the Database**: Run the SQL scripts provided in the `database_setup.sql` file to create and populate the database.
-3. **Run the Queries**: Use the SQL queries provided in the `analysis_queries.sql` file to perform your analysis.
-4. **Explore and Modify**: Feel free to modify the queries to explore different aspects of the dataset or answer additional business questions.
 
-## Author - Zero Analyst
+## BY -Ashutosh
 
 This project is part of my portfolio, showcasing the SQL skills essential for data analyst roles. If you have any questions, feedback, or would like to collaborate, feel free to get in touch!
 
-### Stay Updated and Join the Community
 
-For more content on SQL, data analysis, and other data-related topics, make sure to follow me on social media and join our community:
 
-- **YouTube**: [Subscribe to my channel for tutorials and insights](https://www.youtube.com/@zero_analyst)
-- **Instagram**: [Follow me for daily tips and updates](https://www.instagram.com/zero_analyst/)
-- **LinkedIn**: [Connect with me professionally](https://www.linkedin.com/in/najirr)
-- **Discord**: [Join our community to learn and grow together](https://discord.gg/36h5f2Z5PK)
-
-Thank you for your support, and I look forward to connecting with you!
