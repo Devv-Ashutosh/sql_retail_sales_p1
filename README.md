@@ -87,7 +87,7 @@ WHERE
     quantity >= 4
 ```
 
-3. **Write a SQL query to calculate the total sales (total_sale) for each category.**:
+3. **Write a SQL query to calculate the total sales (total_sale) for each category**:
 ```sql
 SELECT 
     category,
@@ -97,7 +97,7 @@ FROM retail_sales
 GROUP BY 1
 ```
 
-4. **Write a SQL query to find the average age of customers who purchased items from the 'Beauty' category.**:
+4. **Write a SQL query to find the average age of customers who purchased items from the 'Beauty' category**:
 ```sql
 SELECT
     ROUND(AVG(age), 2) as avg_age
@@ -105,13 +105,13 @@ FROM retail_sales
 WHERE category = 'Beauty'
 ```
 
-5. **Write a SQL query to find all transactions where the total_sale is greater than 1000.**:
+5. **Write a SQL query to find all transactions where the total_sale is greater than 1000**:
 ```sql
 SELECT * FROM retail_sales
 WHERE total_sale > 1000
 ```
 
-6. **Write a SQL query to find the total number of transactions (transaction_id) made by each gender in each category.**:
+6. **Write a SQL query to find the total number of transactions (transaction_id) made by each gender in each category**:
 ```sql
 SELECT 
     category,
@@ -144,7 +144,7 @@ GROUP BY 1, 2
 WHERE rank = 1
 ```
 
-8. **Write a SQL query to find the top 5 customers based on the highest total sales **:
+8. **Write a SQL query to find the top 5 customers based on the highest total sales**:
 ```sql
 SELECT 
     customer_id,
@@ -155,7 +155,7 @@ ORDER BY 2 DESC
 LIMIT 5
 ```
 
-9. **Write a SQL query to find the number of unique customers who purchased items from each category.**:
+9. **Write a SQL query to find the number of unique customers who purchased items from each category**:
 ```sql
 SELECT 
     category,    
@@ -183,7 +183,7 @@ SELECT
 FROM hourly_sale
 GROUP BY shift
 ```
-11. **Write a SQL query to calculate the total profit for each category.:.**:
+11. **Write a SQL query to calculate the total profit for each category**:
 ```sql
 SELECT 
     category,
@@ -192,7 +192,7 @@ FROM retail_sales
 GROUP BY category
 ORDER BY total_profit DESC
 ```
-12. **Write a SQL query to distinguish between new and returning customers :**
+12. **Write a SQL query to distinguish between new and returning customers**:
  ```sql
 WITH customer_purchases AS (
     SELECT 
@@ -210,7 +210,7 @@ SELECT
 FROM customer_purchases
 GROUP BY customer_type
  ```
-13.**Peak Hours Evaluation:**
+13.**Peak Hours Evaluation**:
 ```sql
 SELECT 
     EXTRACT(HOUR FROM sale_time) as hour,
@@ -245,6 +245,7 @@ This project serves as a comprehensive introduction to SQL for data analysts, co
 ## BY -Ashutosh
 
 This project is part of my portfolio, showcasing the SQL skills essential for data analyst roles. If you have any questions, feedback, or would like to collaborate, feel free to get in touch!
+
 
 
 
